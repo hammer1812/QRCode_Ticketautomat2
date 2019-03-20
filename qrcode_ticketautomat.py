@@ -44,7 +44,7 @@ class MainWindow(wx.Frame):
 		self.Show(True)
 
 
-	def OnClickedReset(self, e):
+	def OnClickedReset(self, e):	#Event beim klicken des Reset-Buttons
 		dir_path = os.path.dirname(os.path.realpath(__file__))
 		os.remove(dir_path + '\\idList.txt')
 		with open("idList.txt", "w") as reset_list:
@@ -52,7 +52,7 @@ class MainWindow(wx.Frame):
 
 
 
-	def OnEnter(self, e):
+	def OnEnter(self, e):	#Event beim Drücken der Enter-Taste
 		name = str(self.control.GetValue())
 		self.label.SetLabel(generateID(name))
 		self.png = wx.Image("QRCode" + name + ".png", wx.BITMAP_TYPE_PNG).ConvertToBitmap()
