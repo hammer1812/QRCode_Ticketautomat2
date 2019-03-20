@@ -6,9 +6,6 @@ import wx
 import sys
 import traceback
 
-# (dynamisches?) Array erstellen oder Größe vorher festlegen
-#
-
 
 class Panels(wx.Panel):
 	def __init__(self, parent, id):
