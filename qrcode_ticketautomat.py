@@ -7,7 +7,7 @@ import sys
 import traceback
 import tkinter
 from tkfilebrowser import askopendirname, askopenfilename, asksaveasfilename
-import profile
+from profile import Profile
 
 
 #  Ein Hauch von Tüll. Wohl eher gehört in den Müll!
@@ -24,7 +24,7 @@ class MainWindow(wx.Frame):
 
         self.png = pyqrcode.QRCode
         self.bitmap = wx.StaticBitmap
-        self.qrprofile = profile.Profile
+        self.qrprofile = Profile
 
         # self.panel = wx.Panel(self)
         #
@@ -44,7 +44,8 @@ class MainWindow(wx.Frame):
         self.loadQR = wx.Button(self, wx.ID_ANY, "QR-Code prüfen")
         # self.resetIdList.SetPosition((500, 0))
 
-        topsizer.Add(self.control, 1, wx.EXPAND)
+        topsizer.Add(self.control, 1, wx.ALIGN_CENTER)
+        topsizer.Add(self.label, 1, wx.ALIGN_CENTER)
         # StaticText um DateOfPurchase zu zeigen
         button_sizer.Add(self.resetIdList, 0, wx.ALL, 10)
         topsizer.Add(button_sizer, wx.SizerFlags(0).Center())
@@ -88,7 +89,7 @@ class MainWindow(wx.Frame):
     #  Event beim Drücken der Enter-Taste: Instanz des Objekts profile erzeugen und QRCode generieren und .png erstellen
     def onEnter(self, e):
         name = str(self.control.GetValue())
-        self.qrprofile = profile(name)
+        self.qrprofile = Profile(name)
         self.png = self.qrprofile.getQRImage()
         self.bitmap = wx.StaticBitmap(self, -1, self.png, (10, 5), (self.png.GetWidth(), self.png.GetHeight()))
         self.bitmap.SetPosition((0, 50))
