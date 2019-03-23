@@ -12,6 +12,7 @@ class Profile:
     stringID = " "
     idQR = pyqrcode.QRCode
 
+    #  Initialisierung des Objekts
     def __init__(self, name):
         self.name = name
         self.dateOfPurchase = datetime.now()
