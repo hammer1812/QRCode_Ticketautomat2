@@ -90,8 +90,8 @@ class MainWindow(wx.Frame):
     def onEnter(self, e):
         name = str(self.control.GetValue())
         self.qrprofile = Profile(name)
-        self.png = self.qrprofile.getQRImage()
-        self.bitmap = wx.StaticBitmap(self, -1, self.png, (10, 5), (self.png.GetWidth(), self.png.GetHeight()))
+        self.png = wx.Image(self.qrprofile.getFileName(), wx.BITMAP_TYPE_PNG).ConvertToBitmap()
+        self.bitmap = wx.StaticBitmap(self, wx.ID_ANY, self.png, (10, 5), (150, 150))
         self.bitmap.SetPosition((0, 50))
         self.Update()
 

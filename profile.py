@@ -1,6 +1,5 @@
 import pyqrcode
 import random
-from cryptography.fernet import Fernet
 from datetime import datetime
 
 
@@ -12,16 +11,15 @@ class Profile:
     idList = []
     stringID = " "
     idQR = pyqrcode.QRCode
-    key = Fernet
-    encryption = Fernet
+    fileName = " "
 
     #  Initialisierung des Objekts
     def __init__(self, name):
         self.name = name
         self.dateOfPurchase = datetime.now()
         self.__generateID()
-        self.key = Fernet.generate_key()
-        self.encryption = Fernet(self.__key)
+        self.price = 35
+        #  Preis berechnen und abhängig von dateOfPurchase machen
 
     def __del__(self):  # I'm about to end this man's whole career.
         del self.name
@@ -31,7 +29,6 @@ class Profile:
         del self.idList
         del self.stringID
         del self.idQR
-        del self.key
 
     #  private Methode zum erzeugen der ID und des QRCOdes
     def __generateID(self):
@@ -43,14 +40,16 @@ class Profile:
                 self.idList.append(self.id)
                 self.stringID += self.name[0]
                 self.stringID += str(datetime.now())
-                self.stringID += str(id)
+                self.stringID += str(self.id)
                 self.stringID += self.name[-1]
+                self.fileName = ("QRCode" + self.name + ".png")
                 with open("idList.txt", "w") as write_list:
-                    #  write_list.writelines(self.encryption.encrypt(b"%s") % line for line in self.idList)
-                    entry = self.encryption.encrypt("%d".encode(), self.id)
-                    write_list.write(entry)
-                self.idQR = pyqrcode.create(str(self.id) + "\n" + self.name + "\n" + self.dateOfPurchase, error='L', mode='binary')
-                self.idQR.png('QRCode' + self.name + '.png', scale=5)
+                    #  write_list.writelines(str(self.id) + "\n")
+                    for idNumber in self.idList:
+                        if idNumber != ';':
+                            write_list.write("%s;" % idNumber)
+                self.idQR = pyqrcode.create(str(self.id) + "\n" + self.name + "\n" + str(self.dateOfPurchase), error='L', mode='binary')
+                self.idQR.png(self.fileName, scale=5)
 
     #  die "verschlüsselte" ID in Form eines Strings
     def getStringID(self):
@@ -71,3 +70,7 @@ class Profile:
     #  das korrespondierende QRCode-Objekt
     def getQRImage(self):
         return self.idQR
+
+#  Dateiname des QRCodes
+    def getFileName(self):
+        return self.fileName
