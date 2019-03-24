@@ -1,4 +1,2 @@
 #ignore created .png files
 *.png
-#ignore idList.txt
-idList.txt

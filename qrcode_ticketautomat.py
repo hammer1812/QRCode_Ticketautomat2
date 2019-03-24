@@ -5,13 +5,6 @@ from tkfilebrowser import askopenfilename
 from profile import Profile
 
 
-#  Ein Hauch von Tüll. Wohl eher gehört in den Müll!
-class Panels(wx.Panel):
-    def __init__(self, parent, id):
-        wx.Panel.__init__(self, parent)
-        self.parent = parent
-
-
 class MainWindow(wx.Frame):
     def __init__(self, parent, title):
         super(MainWindow, self).__init__()
@@ -20,13 +13,6 @@ class MainWindow(wx.Frame):
         self.png = pyqrcode.QRCode
         self.bitmap = wx.StaticBitmap
         self.qrprofile = Profile
-
-        # self.panel = wx.Panel(self)
-        #
-        # self.vsizer = wx.BoxSizer(wx.VERTICAL)
-        # self.nm = wx.StaticBox(self.panel, wx.ID_ANY, "Name: ")
-        # self.nmSizer = wx.StaticBoxSizer(self.nm, wx.VERTICAL)
-        # self.hsizer = wx.BoxSizer(wx.HORIZONTAL)
 
         topsizer = wx.BoxSizer(wx.VERTICAL)
         button_sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -37,7 +23,6 @@ class MainWindow(wx.Frame):
         self.label.SetBackgroundColour("white")
         self.resetIdList = wx.Button(self, wx.ID_ANY, "ID-Liste zurücksetzen")
         self.loadQR = wx.Button(self, wx.ID_ANY, "QR-Code prüfen")
-        # self.resetIdList.SetPosition((500, 0))
 
         topsizer.Add(self.control, 1, wx.ALIGN_CENTER)
         topsizer.Add(self.label, 1, wx.ALIGN_CENTER)
@@ -45,12 +30,6 @@ class MainWindow(wx.Frame):
         button_sizer.Add(self.resetIdList, 0, wx.ALL, 10)
         topsizer.Add(button_sizer, wx.SizerFlags(0).Center())
         self.SetSizerAndFit(topsizer)
-
-        # self.vsizer.Add(self.control, 0, 0, 0)
-        # self.vsizer.Add(self.label, 0, 0, 0)
-        # self.hsizer.Add(self.resetIdList, 0, wx.ALIGN_RIGHT)
-        # self.nmSizer.Add(self.vsizer, 0, 0, 0)
-        # self.panel.SetSizer(self.vsizer)
         self.CreateStatusBar()
 
         #  Verknüpfen der Buttons mit Funktionen
@@ -89,26 +68,6 @@ class MainWindow(wx.Frame):
         self.bitmap = wx.StaticBitmap(self, wx.ID_ANY, self.png, (10, 5), (150, 150))
         self.bitmap.SetPosition((0, 50))
         self.Update()
-
-
-# def generateID(name):
-# 	stringID = ""
-# 	id = random.randrange(10000, 99999, 1)
-# 	with open("idList.txt", "r") as read_list:
-# 		read_list.seek(0)
-# 		idList = read_list.readlines()
-# 		while id not in idList:
-# 			idList.append(id)
-# 			stringID += name[0]
-# 			stringID += datetime.now()
-# 			stringID += str(id)
-# 			stringID += name[-1]
-# 			with open("idList.txt", "w") as write_list:
-# 				write_list.writelines("%s\n" % line for line in idList)
-# 			idQR = pyqrcode.create(str(id) + "\n" + name + "\n" + time.strftime("%d%m%y%H%M"), error='L', mode='binary')
-# 			idQR.png('QRCode' + name + '.png', scale=5)
-# 			return stringID
-# 	return None
 
 
 def main():
