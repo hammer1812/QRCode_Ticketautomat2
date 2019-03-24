@@ -1,12 +1,7 @@
 import pyqrcode
-from datetime import datetime
-import random
 import os
 import wx
-import sys
-import traceback
-import tkinter
-from tkfilebrowser import askopendirname, askopenfilename, asksaveasfilename
+from tkfilebrowser import askopenfilename
 from profile import Profile
 
 
